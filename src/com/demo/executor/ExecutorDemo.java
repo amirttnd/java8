@@ -3,12 +3,12 @@ package com.demo.executor;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class ExecutorDemo {
 
-    public static void main(String[] args) {
-        singleThreadPool();
-        fixedThreadPool();
+    public static void main(String[] args) throws Exception {
+        singleThreadPoolFuture();
     }
 
     public static void singleThreadPool() {
@@ -18,6 +18,17 @@ public class ExecutorDemo {
         });
         executorService.shutdown();
     }
+
+    public static void singleThreadPoolFuture() throws Exception {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<String> future = executorService.submit(() -> {
+            Thread.sleep(1000);
+            return Thread.currentThread().getName();
+        });
+        System.out.println(future.get());
+        executorService.shutdown();
+    }
+
 
     public static void fixedThreadPool() {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
