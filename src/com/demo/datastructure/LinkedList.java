@@ -50,6 +50,7 @@ public class LinkedList<E> {
         } else {
             node.setLink(start);
             start = node;
+            size++;
         }
     }
 
@@ -57,6 +58,16 @@ public class LinkedList<E> {
         add(data);
     }
 
+    Node<E> removeFirst() {
+        Node<E> tem = start;
+        if (start == end) {
+            start = end = null;
+        } else {
+            start = start.getLink();
+        }
+        size--;
+        return tem;
+    }
 
     void insertAt(int pos, E data) {
         pos = pos - 1;
@@ -68,7 +79,7 @@ public class LinkedList<E> {
             } else if (pos == size) {
                 insertLast(data);
             } else {
-                for (int i = 0; i < pos; i++) {
+                for (int i = 1; i < pos; i++) {
                     head = head.getLink();
                 }
                 node.setLink(head.getLink());
@@ -99,6 +110,9 @@ public class LinkedList<E> {
         list.add(5);
         list.insertAt(1, 19);
         list.insertFirst(0);
+
+        list.removeFirst();
+
         list.display();
         System.out.println("Size: " + list.size());
     }
